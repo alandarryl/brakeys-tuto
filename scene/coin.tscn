@@ -91,7 +91,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"coin",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_luioy"]
@@ -102,6 +102,9 @@ radius = 5.09902
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ss1if")
 animation = &"coin"
+autoplay = "coin"
+frame = 7
+frame_progress = 0.422219
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_luioy")
