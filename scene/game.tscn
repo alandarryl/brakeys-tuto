@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://i255t34c7lke"]
+[gd_scene load_steps=15 format=3 uid="uid://i255t34c7lke"]
 
 [ext_resource type="PackedScene" uid="uid://jxcnl6fryl7v" path="res://scene/player.tscn" id="1_nst4n"]
 [ext_resource type="Texture2D" uid="uid://t0aep042oytv" path="res://assets/sprites/world_tileset.png" id="2_qh6hi"]
 [ext_resource type="PackedScene" uid="uid://bi05c0dm33c1e" path="res://scene/platform.tscn" id="3_m7gus"]
 [ext_resource type="PackedScene" uid="uid://wmsglxyl2tcs" path="res://scene/coin.tscn" id="4_qk5v8"]
+[ext_resource type="PackedScene" uid="uid://5upqqdcomofb" path="res://scene/killzone.tscn" id="5_nynl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_42qcp"]
 texture = ExtResource("2_qh6hi")
@@ -408,6 +409,21 @@ texture = ExtResource("2_qh6hi")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_42qcp")
 
+[sub_resource type="Animation" id="Animation_omryu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-99, -223)]
+}
+
 [sub_resource type="Animation" id="Animation_4th0f"]
 resource_name = "move_up"
 length = 2.5
@@ -425,7 +441,13 @@ tracks/0/keys = {
 "values": [Vector2(-99, -223), Vector2(-98, -369)]
 }
 
-[sub_resource type="Animation" id="Animation_omryu"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lagkk"]
+_data = {
+"RESET": SubResource("Animation_omryu"),
+"move_up": SubResource("Animation_4th0f")
+}
+
+[sub_resource type="Animation" id="Animation_lxesj"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -437,13 +459,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-99, -223)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lagkk"]
-_data = {
-"RESET": SubResource("Animation_omryu"),
-"move_up": SubResource("Animation_4th0f")
+"values": [Vector2(153, -372)]
 }
 
 [sub_resource type="Animation" id="Animation_7d4cq"]
@@ -463,26 +479,14 @@ tracks/0/keys = {
 "values": [Vector2(153, -372), Vector2(386, -372)]
 }
 
-[sub_resource type="Animation" id="Animation_lxesj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(153, -372)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0q085"]
 _data = {
 "RESET": SubResource("Animation_lxesj"),
 "move_right": SubResource("Animation_7d4cq")
 }
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mstvh"]
+distance = 52.0
 
 [node name="game" type="Node2D"]
 
@@ -492,6 +496,7 @@ position = Vector2(-138, -79)
 [node name="Camera2D" type="Camera2D" parent="player"]
 position = Vector2(-1, 6)
 zoom = Vector2(4, 4)
+limit_bottom = 100
 position_smoothing_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -584,3 +589,10 @@ position = Vector2(113, -6)
 
 [node name="coin7" parent="Node2" instance=ExtResource("4_qk5v8")]
 position = Vector2(621, -266)
+
+[node name="killzone" parent="." instance=ExtResource("5_nynl0")]
+position = Vector2(45, 97)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(1, 53)
+shape = SubResource("WorldBoundaryShape2D_mstvh")
