@@ -1,12 +1,16 @@
 extends CharacterBody2D
 
-@onready var animated_sprite = $AnimatedSprite2D
-const SPEED = 150.0
-const JUMP_VELOCITY = -350.0
+@onready var animatedSprite = $AnimatedSprite2D
+@onready var camera = $Camera2D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+@export var SPEED = 150.0
+@export var JUMP_VELOCITY = -350.0
+
+# 1. FIX: Define target offsets for the X axis, and a lerp speed
+var target_offset_x = 0.0
+@export var CAMERA_SMOOTH_SPEED = 1.0 # Higher number = faster camera pan
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -14,12 +18,32 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("left", "right")
+	
+	# 2. FIX: Update the *target* offset value instead of forcing the camera instantly
+	if direction > 0:
+		animatedSprite.flip_h = false
+		target_offset_x = 50.0 # Look 100 pixels ahead to the right
+	elif direction < 0:
+		animatedSprite.flip_h = true
+		target_offset_x = -50.0 # Look 100 pixels ahead to the left
+	
+	# 3. FIX: Smoothly slide the camera's X offset toward the target offset
+	camera.offset.x = lerp(camera.offset.x, target_offset_x, CAMERA_SMOOTH_SPEED * delta)
+	
+	# Animations
+	if is_on_floor():
+		if direction == 0:
+			animatedSprite.play("Idle")
+		else:
+			animatedSprite.play("Run")
+	else:
+		animatedSprite.play("jump")
+	
+	# Movement
 	if direction:
 		velocity.x = direction * SPEED
 	else:
