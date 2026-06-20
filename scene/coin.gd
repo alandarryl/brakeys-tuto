@@ -1,12 +1,13 @@
 extends Area2D
 
 @onready var coin = $"."
+@onready var game_manager = %GameManager
+@onready var animation_player = $AnimationPlayer
 
 var gather_coins = 0
 
 func _on_body_entered(body):
-	print("+1 coin")
-	gather_coins+=1
-	print(gather_coins)
-	queue_free()
+	game_manager.add_coin()
+	animation_player.play("pickUp")
+	
 	
