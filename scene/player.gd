@@ -5,7 +5,12 @@ extends CharacterBody2D
 
 @export var SPEED = 150.0
 @export var JUMP_VELOCITY = -350.0
-@onready var jump = $jump
+@onready var jump_sound = $jump
+
+#control double jump
+var init_jump_num = 2
+var current_jump_num = 2
+
 
 # 1. FIX: Define target offsets for the X axis, and a lerp speed
 var target_offset_x = 0.0
@@ -17,11 +22,14 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	else :
+		current_jump_num = init_jump_num
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		jump.play()
+	if Input.is_action_just_pressed("jump") and (current_jump_num > 0 or is_on_floor()):
+		jump_sound.play()
 		velocity.y = JUMP_VELOCITY
+		current_jump_num -= 1
 
 	var direction = Input.get_axis("left", "right")
 	

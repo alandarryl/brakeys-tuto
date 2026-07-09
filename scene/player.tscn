@@ -1,6 +1,6 @@
-[gd_scene load_steps=43 format=3 uid="uid://jxcnl6fryl7v"]
+[gd_scene format=3 uid="uid://jxcnl6fryl7v"]
 
-[ext_resource type="Script" path="res://scene/player.gd" id="1_k0se3"]
+[ext_resource type="Script" uid="uid://cfsyem6ugslrf" path="res://scene/player.gd" id="1_k0se3"]
 [ext_resource type="Texture2D" uid="uid://c2s6q8llu0j5t" path="res://assets/sprites/knight.png" id="1_uctfu"]
 [ext_resource type="AudioStream" uid="uid://dmpf8e3gpncay" path="res://assets/sounds/jump.wav" id="3_pt0a5"]
 
@@ -167,7 +167,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_si8sm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 8.0
 }, {
@@ -220,7 +220,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_exb1r")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Run",
 "speed": 12.0
 }, {
@@ -237,7 +237,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ncmk8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -254,7 +254,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cb02q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"hurt",
 "speed": 5.0
 }, {
@@ -262,7 +262,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wpnvh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -291,7 +291,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_llmx1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"roll",
 "speed": 5.0
 }]
@@ -300,12 +300,12 @@ animations = [{
 radius = 6.0
 height = 14.0
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=1371873136]
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("1_k0se3")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1350589787]
 z_index = 5
 sprite_frames = SubResource("SpriteFrames_kh4bl")
 animation = &"Run"
@@ -313,10 +313,10 @@ autoplay = "Idle"
 frame = 6
 frame_progress = 0.110435
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=754877603]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_qfiaj")
 
-[node name="jump" type="AudioStreamPlayer2D" parent="."]
+[node name="jump" type="AudioStreamPlayer2D" parent="." unique_id=1045493320]
 stream = ExtResource("3_pt0a5")
 bus = &"SFX"
