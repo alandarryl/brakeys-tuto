@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c0n4nysgdt7xl"]
+
+[ext_resource type="Script" uid="uid://b4wnkmqid5m2" path="res://scene/menu_final.gd" id="1_ukcwg"]
+[ext_resource type="Texture2D" uid="uid://dqvb6qhkwjihe" path="res://menu_backgrouns/king_jumper_bg.png" id="2_g7onn"]
+
+[node name="MenuFinal" type="Control" unique_id=1010059505]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 649.0
+script = ExtResource("1_ukcwg")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1341230552]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_g7onn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1294703463]
+layout_mode = 0
+offset_left = 509.0
+offset_top = 442.0
+offset_right = 847.0
+offset_bottom = 536.0
+alignment = 1
+
+[node name="Return" type="Button" parent="VBoxContainer" unique_id=2144132688]
+layout_mode = 2
+text = "retourner au menu principale"
+
+[node name="Label" type="Label" parent="." unique_id=1426244361]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 401.0
+offset_right = 1099.0
+offset_bottom = 461.0
+theme_override_font_sizes/font_size = 24
+text = "Felicitation vous avez completer le niveau en recoltons 20 pièce"
+
+[connection signal="pressed" from="VBoxContainer/Return" to="." method="_on_return_pressed"]

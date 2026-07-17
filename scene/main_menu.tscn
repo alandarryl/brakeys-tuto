@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://88oi3yk4vmfb"]
+
+[ext_resource type="Script" uid="uid://bs8xv2x81eibx" path="res://scene/main_menu.gd" id="1_3er1b"]
+[ext_resource type="Texture2D" uid="uid://dqvb6qhkwjihe" path="res://menu_backgrouns/king_jumper_bg.png" id="2_hxu56"]
+
+[node name="MainMenu" type="Control" unique_id=1892328489]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1145.0
+offset_bottom = 652.0
+script = ExtResource("1_3er1b")
+
+[node name="background" type="TextureRect" parent="." unique_id=1057257638]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_hxu56")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=566899617]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.5
+offset_top = -160.0
+offset_right = 247.5
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayButon" type="Button" parent="VBoxContainer" unique_id=102353244]
+layout_mode = 2
+text = "play"
+metadata/play = false
+
+[node name="QuitButon" type="Button" parent="VBoxContainer" unique_id=308898830]
+layout_mode = 2
+text = "quit"
+
+[node name="Label" type="Label" parent="." unique_id=510754734]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.5
+offset_top = -151.0
+offset_right = 158.5
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "welcome to king jumper"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/PlayButon" to="." method="_on_play_buton_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButon" to="." method="_on_quit_buton_pressed"]
